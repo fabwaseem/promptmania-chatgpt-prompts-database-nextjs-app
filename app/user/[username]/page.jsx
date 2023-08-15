@@ -29,22 +29,20 @@ const ProfilePage = ({ params }) => {
     if (user?._id) fetchPosts();
   }, [user]);
 
-
-
   return (
-    <Profile
-      name={
-        session?.user?.id === user._id
-          ? "Your "
-          : `${user.name}'s `
-      }
-      desc={
-        session?.user?.id === user._id
-          ? `Welcome to  your profile! Here you will find all the prompts you have created.`
-          : `Welcome to  ${user.name}'s profile! Here you will find all the prompts they have created.`
-      }
-      data={posts}
-    />
+    <>
+      {user && (
+        <Profile
+          name={session?.user?.id === user._id ? "Your " : `${user?.name}'s `}
+          desc={
+            session?.user?.id === user._id
+              ? `Welcome to  your profile! Here you will find all the prompts you have created.`
+              : `Welcome to  ${user.name}'s profile! Here you will find all the prompts they have created.`
+          }
+          data={posts}
+        />
+      )}
+    </>
   );
 };
 

@@ -1,10 +1,7 @@
+import Masonry from "react-masonry-css";
 import PromptCard from "./PromptCard";
 
-const Profile = ({
-  name,
-  desc,
-  data,
-}) => {
+const Profile = ({ name, desc, data }) => {
   return (
     <section className="w-full">
       <h1 className="head_text text-left">
@@ -12,12 +9,15 @@ const Profile = ({
       </h1>
       <p className="desc text-left">{desc}</p>
       <div className="mt-10 prompt_layout">
-        {data.map((post) => (
-          <PromptCard
-            key={post._id}
-            post={post}
-          />
-        ))}
+        <Masonry
+          breakpointCols={{ default: 3, 1200: 2, 900: 1 }}
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column"
+        >
+          {data.map((post) => (
+            <PromptCard key={post._id} post={post} />
+          ))}
+        </Masonry>
       </div>
     </section>
   );

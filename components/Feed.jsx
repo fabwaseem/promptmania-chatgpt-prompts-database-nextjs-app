@@ -5,6 +5,7 @@ import PromptCard from "./PromptCard";
 import Masonry from "react-masonry-css";
 import { useRouter, useSearchParams } from "next/navigation";
 import Loading from "@app/loading";
+import { DebounceInput } from "react-debounce-input";
 
 const PromptCardList = ({ data }) => {
   return (
@@ -55,21 +56,19 @@ const Feed = () => {
 
   useEffect(() => {
     const query = seachParams.get("query");
-    if (query) {
-      setSearchText(query);
-      handleSearch();
-    }
+    setSearchText(query);
+    handleSearch();
   }, [seachParams]);
 
   return (
     <section className="feed">
       <form className="relative w-full flex-center" onSubmit={handleSearch}>
-        <input
-          type="text"
-          placeholder="Search for a tag or a username"
-          value={searchText}
+        <DebounceInput
+          minLength={3}
+          debounceTimeout={300}
           onChange={handleSearchChange}
           required
+          placeholder="Search for a tag or a username"
           className="search_input peer"
         />
       </form>
