@@ -3,7 +3,7 @@
 import Form from "@components/Form";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const CreatePrompt = () => {
   const router = useRouter();
@@ -38,9 +38,11 @@ const CreatePrompt = () => {
     }
   };
 
-  if (!session) {
-    router.push("/");
-  }
+  useEffect(() => {
+    if (!session) {
+      router.push("/");
+    }
+  }, [session]);
 
   return (
     <Form
